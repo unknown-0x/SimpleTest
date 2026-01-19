@@ -1,0 +1,100 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/Output/Build/${presetName}",
+      "installDir": "${sourceDir}/Output/Install/${presetName}",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "OFF",
+        "CXX_STANDARD": "17"
+      }
+    },
+    {
+      "name": "ninja-base",
+      "hidden": true,
+      "inherits": "base",
+      "generator": "Ninja"
+    },
+    {
+      "name": "msvc-base",
+      "hidden": true,
+      "inherits": "base",
+      "generator": "Visual Studio 17 2022",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+
+    {
+      "name": "debug-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+
+    {
+      "name": "ninja-debug-x64",
+      "inherits": ["ninja-base", "debug-base"],
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "ninja-release-x64",
+      "inherits": ["ninja-base", "release-base"],
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "msvc-debug-x64",
+      "inherits": "msvc-base",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "msvc-release-x64",
+      "inherits": "msvc-base",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-ninja-x64-debug",
+      "configurePreset": "ninja-debug-x64"
+    },
+    {
+      "name": "build-ninja-x64-release",
+      "configurePreset": "ninja-release-x64"
+    },
+    {
+      "name": "build-msvc-x64-debug",
+      "configurePreset": "msvc-debug-x64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "build-msvc-x64-release",
+      "configurePreset": "msvc-release-x64",
+      "configuration": "Release"
+    }
+  ]
+}

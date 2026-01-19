@@ -1,0 +1,18 @@
+---
+Checks: >
+  -*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  misc-*,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  performance-*,
+  portability-*,
+  readability-*
+WarningsAsErrors: ''
+HeaderFileExtensions:
+  - hpp
+ImplementationFileExtensions:
+  - cpp
+HeaderFilterRegex: ''
+SystemHeaders: false
