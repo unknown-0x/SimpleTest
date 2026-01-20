@@ -3,6 +3,10 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
+#if defined(__unix__) || defined(__unix) || defined(__linux__) || \
+    defined(__APPLE__) || defined(__MACH__)
+#include <array>
+#endif
 
 namespace simpletest {
 namespace {
