@@ -4,7 +4,6 @@
 
 #include <cmath>
 #include <cstring>
-#include <string_view>
 
 namespace simpletest {
 bool CreateTestCase(const char* suite,
