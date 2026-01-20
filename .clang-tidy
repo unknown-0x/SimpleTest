@@ -3,12 +3,16 @@ Checks: >
   -*,
   bugprone-*,
   cppcoreguidelines-*,
+  -cppcoreguidelines-pro-type-vararg,
   misc-*,
+  -misc-include-cleaner,
+  -misc-use-internal-linkage,
   modernize-*,
   -modernize-use-trailing-return-type,
   performance-*,
   portability-*,
-  readability-*
+  readability-*,
+  -readability-identifier-length
 WarningsAsErrors: ''
 HeaderFileExtensions:
   - hpp

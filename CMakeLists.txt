@@ -28,5 +28,5 @@ if(MSVC)
     add_compile_options(/MP)
 endif()
 
-add_subdirectory(External)
 add_subdirectory(Source)
+add_subdirectory(Example)

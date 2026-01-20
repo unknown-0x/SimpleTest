@@ -1,1 +1,1 @@
-# CppTemplate
+# SimpleTest
