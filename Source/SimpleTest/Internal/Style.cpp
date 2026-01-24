@@ -22,7 +22,8 @@
 
 #if defined(OS_LINUX) || defined(OS_MAC)
 #include <unistd.h>
-#include <array>
+#include <algorithm>
+#include <cstring>
 #define FILENO(file) fileno(file)
 #endif
 
