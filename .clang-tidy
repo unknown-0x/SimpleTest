@@ -4,6 +4,8 @@ Checks: >
   bugprone-*,
   cppcoreguidelines-*,
   -cppcoreguidelines-pro-type-vararg,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-macro-usage,
   misc-*,
   -misc-include-cleaner,
   -misc-use-internal-linkage,
@@ -12,7 +14,8 @@ Checks: >
   performance-*,
   portability-*,
   readability-*,
-  -readability-identifier-length
+  -readability-identifier-length,
+  -readability-use-concise-preprocessor-directives
 WarningsAsErrors: ''
 HeaderFileExtensions:
   - hpp
