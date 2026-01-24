@@ -20,12 +20,24 @@ class SIMPLETEST_API TestCaseResult {
 
   void AddFailureInfo(const char* file, int line);
 
-  bool IsPassed() const { return failure_count == 0; }
+  bool IsPassed() const { return failure_count_ == 0; }
   double GetElapsed() const { return elapsed_; }
 
+  template <typename Fn>
+  void ForEachFailureInfo(Fn&& fn) const {
+    if (failure_count_ == 0) {
+      return;
+    }
+    const std::vector<FailureInfo>& infos = GetGlobalFailureInfos();
+    for (uint32_t i = first_failure_index_, count = failure_count_; count > 0;
+         ++i, --count) {
+      fn(infos[i]);
+    }
+  }
+
  private:
-  uint32_t first_failure_index = UINT32_MAX;
-  uint32_t failure_count = 0;
+  uint32_t first_failure_index_ = UINT32_MAX;
+  uint32_t failure_count_ = 0;
   double elapsed_ = 0.0;
 };
 
@@ -35,25 +47,10 @@ class SIMPLETEST_API TestCase {
 
   TestCase(const char* name, TestFunction func);
 
-  template <typename Fn>
-  void ProcessFailureInfos(Fn&& fn) const {
-    if (result_.failure_count == 0) {
-      return;
-    }
-    const std::vector<FailureInfo>& infos = GetGlobalFailureInfos();
-    for (uint32_t i = result_.first_failure_index,
-                  count = result_.failure_count;
-         count > 0; ++i, --count) {
-      fn(infos[i]);
-    }
-  }
-
-  void Run();
+  TestCaseResult Run() const;
   const char* GetName() const { return name_; }
-  const TestCaseResult& GetResult() const { return result_; }
 
  private:
-  TestCaseResult result_;
   TestFunction func_;
   const char* name_;
 };

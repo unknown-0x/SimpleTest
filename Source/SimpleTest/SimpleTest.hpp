@@ -1,13 +1,12 @@
 #ifndef SIMPLE_TEST_SIMPLE_TEST_HPP
 #define SIMPLE_TEST_SIMPLE_TEST_HPP
 
-#include "TestCase.hpp"
 #include "TestMacros.hpp"
 #include "TestRunner.hpp"
-#include "TestSuite.hpp"
+#include "UnitTest.hpp"
 
 namespace simpletest {
-int Main(int argc, char** argv);
+SIMPLETEST_API int Main(int argc, char** argv);
 }  // namespace simpletest
 
 #define SIMPLE_TEST_MAIN()                 \

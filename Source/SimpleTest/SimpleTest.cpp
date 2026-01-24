@@ -24,6 +24,6 @@ int Main(int argc, char** argv) {
   (void)argc;
   (void)argv;
   EnableMemoryLeakDetection();
-  return TestRunner::Get().RunAllTests();
+  return UnitTest::Get().RunAllTests();
 }
 }  // namespace simpletest

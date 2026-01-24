@@ -1,6 +1,6 @@
 #include "TestMacros.hpp"
 
-#include "TestRunner.hpp"
+#include "UnitTest.hpp"
 
 #include <cmath>
 #include <cstring>
@@ -9,7 +9,7 @@ namespace simpletest {
 bool CreateTestCase(const char* suite,
                     const char* name,
                     TestCase::TestFunction fn) {
-  TestRunner::Get().GetTestSuite(suite).RegisterTestCase(name, fn);
+  UnitTest::Get().GetOrCreateTestSuite(suite).RegisterTestCase(name, fn);
   return true;
 }
 

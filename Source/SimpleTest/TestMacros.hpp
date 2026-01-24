@@ -8,29 +8,36 @@
 #include <string_view>
 
 namespace simpletest {
-bool CreateTestCase(const char* suite,
-                    const char* name,
-                    TestCase::TestFunction fn);
+SIMPLETEST_API bool CreateTestCase(const char* suite,
+                                   const char* name,
+                                   TestCase::TestFunction fn);
 
-void ExpectImpl(TestCaseResult& result, bool value, const char* file, int line);
+SIMPLETEST_API void ExpectImpl(TestCaseResult& result,
+                               bool value,
+                               const char* file,
+                               int line);
 
-bool CompareStr(std::string_view lhs, std::string_view rhs);
-bool CompareStr(std::wstring_view lhs, std::wstring_view rhs);
+SIMPLETEST_API bool CompareStr(std::string_view lhs, std::string_view rhs);
+SIMPLETEST_API bool CompareStr(std::wstring_view lhs, std::wstring_view rhs);
 #ifdef __cpp_char8_t
-bool CompareStr(std::u8string_view lhs, std::u8string_view rhs);
+SIMPLETEST_API bool CompareStr(std::u8string_view lhs, std::u8string_view rhs);
 #endif
-bool CompareStr(std::u16string_view lhs, std::u16string_view rhs);
-bool CompareStr(std::u32string_view lhs, std::u32string_view rhs);
+SIMPLETEST_API bool CompareStr(std::u16string_view lhs,
+                               std::u16string_view rhs);
+SIMPLETEST_API bool CompareStr(std::u32string_view lhs,
+                               std::u32string_view rhs);
 
-bool CompareFP(float lhs, float rhs);
-bool CompareFP(double lhs, double rhs);
+SIMPLETEST_API bool CompareFP(float lhs, float rhs);
+SIMPLETEST_API bool CompareFP(double lhs, double rhs);
 
-bool AreAlmostEqual(float lhs,
-                    float rhs,
-                    float epsilon = std::numeric_limits<float>::epsilon());
-bool AreAlmostEqual(double lhs,
-                    double rhs,
-                    double epsilon = std::numeric_limits<double>::epsilon());
+SIMPLETEST_API bool AreAlmostEqual(
+    float lhs,
+    float rhs,
+    float epsilon = std::numeric_limits<float>::epsilon());
+SIMPLETEST_API bool AreAlmostEqual(
+    double lhs,
+    double rhs,
+    double epsilon = std::numeric_limits<double>::epsilon());
 }  // namespace simpletest
 
 #define SIMPLE_TEST_RESULT_PARAM result

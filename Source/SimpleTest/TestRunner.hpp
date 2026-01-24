@@ -2,32 +2,28 @@
 #define SIMPLE_TEST_TEST_RUNNER_HPP
 
 #include "TestSuite.hpp"
+#include "TestSummary.hpp"
 
 namespace simpletest {
-class TestRunner {
+class Reporter;
+class SIMPLETEST_API TestRunner {
  public:
-  TestRunner() = default;
+  TestRunner(Reporter* reporter, const std::vector<TestSuite>& test_suites);
+
   TestRunner(TestRunner&&) = delete;
   TestRunner(const TestRunner&) = delete;
   TestRunner& operator=(TestRunner&&) = delete;
   TestRunner& operator=(const TestRunner&) = delete;
 
-  ~TestRunner() = default;
-
-  static TestRunner& Get();
-
-  TestSuite& GetTestSuite(const char* name);
   int RunAllTests();
 
  private:
-  void ProcessTestSuite(TestSuite& suite);
-  void ProcessTestCaseResult(const TestCase& test_case);
-  void PrintSummary() const;
+  void ProcessTestSuite(const TestSuite& suite);
+  void ProcessTestCaseResult(const TestCaseResult& result);
 
-  std::vector<TestSuite> test_suites_;
-  double total_time_ = 0.0;
-  int num_passed_ = 0;
-  int num_failed_ = 0;
+  const std::vector<TestSuite>& test_suites_;
+  TestSummary summary;
+  Reporter* reporter_;
 };
 }  // namespace simpletest
 
