@@ -1,5 +1,12 @@
 add_library(
     SimpleTest 
+
+    SimpleTest/Internal/Style.hpp
+    SimpleTest/Internal/Style.cpp
+
+    SimpleTest/Reporter.hpp
+    SimpleTest/ConsoleReporter.hpp
+    SimpleTest/ConsoleReporter.cpp
     SimpleTest/SimpleTest.cpp
     SimpleTest/SimpleTest.hpp
     SimpleTest/TestCase.cpp
@@ -10,6 +17,9 @@ add_library(
     SimpleTest/TestMacros.hpp
     SimpleTest/TestRunner.cpp
     SimpleTest/TestRunner.hpp
+    SimpleTest/TestSummary.hpp
+    SimpleTest/UnitTest.cpp
+    SimpleTest/UnitTest.hpp
 )
 
 target_export_api(SimpleTest SIMPLETEST_API)
