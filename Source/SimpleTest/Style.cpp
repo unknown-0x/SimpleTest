@@ -159,7 +159,8 @@ constexpr std::array<StyleToANSI, 9> kStyleMapping{
     StyleToANSI{Style::kBgRed, "\033[41m"},
     StyleToANSI{Style::kBgGreen, "\033[42m"}};
 
-void UseStyle(std::ostream& output, const Style style) {
+template <typename Stream>
+void UseStyle(Stream& output, const Style style) {
   for (const auto& s : kStyleMapping) {
     if (HasStyle(style, s.style)) {
       output << s.ansi;
@@ -190,24 +191,18 @@ bool can_use_style = false;
 bool first_refresh = false;
 }  // namespace
 // NOLINTEND
-}  // namespace simpletest
 
-namespace std {
-std::ostream& refresh(std::ostream& output) {
+void RefreshStream(std::ostream& output) {
   ::simpletest::can_use_style = ::simpletest::CanUseStyle(output);
   ::simpletest::first_refresh = true;
-  return output;
 }
-}  // namespace std
+}  // namespace simpletest
 
-std::ostream& operator<<(std::ostream& output, const simpletest::Style style) {
-  if (!simpletest::first_refresh) {
-    std::refresh(output);
-  }
-
+SIMPLETEST_API simpletest::TextBuffer& operator<<(
+    simpletest::TextBuffer& output,
+    const simpletest::Style style) {
   if (simpletest::can_use_style) {
     simpletest::UseStyle(output, style);
   }
-
   return output;
 }

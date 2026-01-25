@@ -5,6 +5,7 @@ add_executable(
     String.cpp
     FloatingPoint.cpp
     Failed.cpp
+    Fixture.cpp
 )
 
 target_include_directories(Example PRIVATE ${ROOT_PATH}/Source/)

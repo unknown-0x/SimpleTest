@@ -1,9 +1,10 @@
 add_library(
     SimpleTest 
 
-    SimpleTest/Internal/Style.hpp
-    SimpleTest/Internal/Style.cpp
-
+    SimpleTest/Style.hpp
+    SimpleTest/Style.cpp
+    SimpleTest/TextBuffer.hpp
+    SimpleTest/TextBuffer.cpp
     SimpleTest/Reporter.hpp
     SimpleTest/ConsoleReporter.hpp
     SimpleTest/ConsoleReporter.cpp

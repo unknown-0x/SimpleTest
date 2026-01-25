@@ -38,6 +38,15 @@ SIMPLETEST_API bool AreAlmostEqual(
     double lhs,
     double rhs,
     double epsilon = std::numeric_limits<double>::epsilon());
+
+template <typename Fixture>
+class FixtureInvoker {
+ public:
+  static void Invoke(::simpletest::TestCaseResult& result) {
+    Fixture test{};
+    test.Run(result);
+  }
+};
 }  // namespace simpletest
 
 #define SIMPLE_TEST_RESULT_PARAM result
@@ -51,6 +60,17 @@ SIMPLETEST_API bool AreAlmostEqual(
       ::simpletest::TestCaseResult& SIMPLE_TEST_RESULT_PARAM)
 
 #define TEST_CASE(suite, test_case) TEST_CASE_IMPL(suite, test_case)
+
+#define TEST_FIXTURE(fixture, test_case)                                       \
+  class Fixture##fixture##test_case : public fixture {                         \
+   public:                                                                     \
+    void Run(::simpletest::TestCaseResult&);                                   \
+  };                                                                           \
+  static const bool __##fixture##test_case##__ = ::simpletest::CreateTestCase( \
+      #fixture, #test_case,                                                    \
+      ::simpletest::FixtureInvoker<Fixture##fixture##test_case>::Invoke);      \
+  void Fixture##fixture##test_case::Run(                                       \
+      ::simpletest::TestCaseResult& SIMPLE_TEST_RESULT_PARAM)
 
 #define CHECK(...)                                                            \
   ::simpletest::ExpectImpl(SIMPLE_TEST_RESULT_PARAM, (__VA_ARGS__), __FILE__, \

@@ -6,6 +6,7 @@
 namespace simpletest {
 class SIMPLETEST_API ConsoleReporter : public Reporter {
  public:
+  ConsoleReporter();
   void ReportTestSuiteStart(const TestSuite& test_suite) override;
   void ReportTestCaseStart(const TestCase& test_case) override;
   void ReportTestCaseFinish(const TestCase& test_case,

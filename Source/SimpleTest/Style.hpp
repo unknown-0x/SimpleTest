@@ -4,6 +4,8 @@
 #include <ostream>
 #include <type_traits>
 
+#include "TextBuffer.hpp"
+
 namespace simpletest {
 
 #define BIT(x) (1 << x)
@@ -33,13 +35,12 @@ constexpr Style operator&(Style lhs, Style rhs) noexcept {
 constexpr bool HasStyle(Style style, Style s) noexcept {
   return static_cast<int>(style & s) != 0;
 }
+
+SIMPLETEST_API void RefreshStream(std::ostream& output);
 }  // namespace simpletest
 
-namespace std {
-SIMPLETEST_API std::ostream& refresh(std::ostream& output);
-}
-
-SIMPLETEST_API std::ostream& operator<<(std::ostream& output,
-                                        const simpletest::Style style);
+SIMPLETEST_API simpletest::TextBuffer& operator<<(
+    simpletest::TextBuffer& output,
+    const simpletest::Style style);
 
 #endif
