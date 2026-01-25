@@ -37,10 +37,8 @@ constexpr bool HasStyle(Style style, Style s) noexcept {
 }
 
 SIMPLETEST_API void RefreshStream(std::ostream& output);
-}  // namespace simpletest
 
-SIMPLETEST_API simpletest::TextBuffer& operator<<(
-    simpletest::TextBuffer& output,
-    const simpletest::Style style);
+SIMPLETEST_API TextBuffer& operator<<(TextBuffer& output, const Style style);
+}  // namespace simpletest
 
 #endif

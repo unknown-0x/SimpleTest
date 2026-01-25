@@ -193,16 +193,15 @@ bool first_refresh = false;
 // NOLINTEND
 
 void RefreshStream(std::ostream& output) {
-  ::simpletest::can_use_style = ::simpletest::CanUseStyle(output);
-  ::simpletest::first_refresh = true;
+  can_use_style = CanUseStyle(output);
+  first_refresh = true;
 }
-}  // namespace simpletest
 
-SIMPLETEST_API simpletest::TextBuffer& operator<<(
-    simpletest::TextBuffer& output,
-    const simpletest::Style style) {
-  if (simpletest::can_use_style) {
-    simpletest::UseStyle(output, style);
+SIMPLETEST_API simpletest::TextBuffer& operator<<(TextBuffer& output,
+                                                  const Style style) {
+  if (can_use_style) {
+    UseStyle(output, style);
   }
   return output;
 }
+}  // namespace simpletest

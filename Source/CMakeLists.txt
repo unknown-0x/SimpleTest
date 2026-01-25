@@ -25,4 +25,5 @@ add_library(
 
 target_export_api(SimpleTest SIMPLETEST_API)
 target_enable_clang_format(SimpleTest)
+target_config_build_type(SimpleTest)
 # target_enable_clang_tidy(SimpleTest)
