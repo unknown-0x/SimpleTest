@@ -8,7 +8,7 @@
 #include <string>
 
 namespace simpletest {
-namespace Details {
+namespace details {
 template <typename T>
 struct FloatFormatString;
 
@@ -26,7 +26,7 @@ template <>
 struct FloatFormatString<long double> {
   static constexpr const char* kFmt = "%.*Lf";
 };
-}  // namespace Details
+}  // namespace details
 
 class SIMPLETEST_API TextBuffer {
  public:
@@ -118,7 +118,7 @@ class SIMPLETEST_API TextBuffer {
         std::numeric_limits<Float>::max_exponent10 + 20;
     char buffer[kBufferSize];
     int written = std::snprintf(buffer, kBufferSize,
-                                Details::FloatFormatString<Float>::kFmt,
+                                details::FloatFormatString<Float>::kFmt,
                                 precision_.value, value);
     buffer_.append(buffer, written);
   }

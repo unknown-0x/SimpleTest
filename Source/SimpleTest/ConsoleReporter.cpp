@@ -56,11 +56,11 @@ void ConsoleReporter::ReportSummary(const TestSummary& summary) {
   const auto total_test_cases =
       summary.passed_test_cases + summary.failed_test_cases;
 
-  const double pass_percentage =
+  const int pass_percentage = static_cast<int>(
       total_test_cases == 0
           ? 100  // NOLINT
           : static_cast<int>(static_cast<float>(summary.passed_test_cases) /
-                             static_cast<float>(total_test_cases) * 100.F);
+                             static_cast<float>(total_test_cases) * 100.F));
 
   TextBuffer buffer{};
   buffer << (Style::kBold | Style::kFgWhite) << "=================== ";
