@@ -1,6 +1,6 @@
 set(CXX_STANDARD "17" CACHE STRING "Set value for the C++ language version")
 
-set(ROOT_PATH ${CMAKE_SOURCE_DIR})
+set(ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR 0)

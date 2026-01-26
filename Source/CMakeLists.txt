@@ -23,6 +23,14 @@ add_library(
     SimpleTest/UnitTest.hpp
 )
 
+add_library(SimpleTest::SimpleTest ALIAS SimpleTest)
+
+target_include_directories(SimpleTest
+  PUBLIC
+    $<BUILD_INTERFACE:${ROOT_PATH}/Source>
+    $<INSTALL_INTERFACE:include>
+)
+
 target_export_api(SimpleTest SIMPLETEST_API)
 target_enable_clang_format(SimpleTest)
 target_config_build_type(SimpleTest)
