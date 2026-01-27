@@ -37,6 +37,9 @@ class SIMPLETEST_API TextBuffer {
   explicit TextBuffer(std::size_t initial_capacity = 1024);
 
   void Clear();
+  std::string& GetString() { return buffer_; }
+  const std::string& GetString() const { return buffer_; }
+
   TextBuffer& operator<<(const char* s);
   TextBuffer& operator<<(char c);
   TextBuffer& operator<<(const std::string& s);
@@ -107,7 +110,7 @@ class SIMPLETEST_API TextBuffer {
       *--ptr = '-';
     }
 
-    buffer_.append(ptr, end - ptr);
+    buffer_.append(ptr, (end - 1) - ptr);
   }
 
   template <typename Float>

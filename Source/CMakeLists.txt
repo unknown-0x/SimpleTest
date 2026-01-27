@@ -33,5 +33,11 @@ target_include_directories(SimpleTest
 
 target_export_api(SimpleTest SIMPLETEST_API)
 target_enable_clang_format(SimpleTest)
-target_config_build_type(SimpleTest)
+target_config_build_type(SimpleTest PRIVATE)
 # target_enable_clang_tidy(SimpleTest)
+
+add_library(SimpleTestMain SimpleTest/SimpleTestMain.cpp)
+target_link_libraries(SimpleTestMain PUBLIC SimpleTest)
+target_import_api(SimpleTestMain PUBLIC SimpleTest)
+target_config_build_type(SimpleTestMain PRIVATE)
+target_enable_clang_format(SimpleTestMain)
