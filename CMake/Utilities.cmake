@@ -21,7 +21,7 @@ function(target_export_api target_name api_name)
             )
         elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
             target_compile_definitions(${target_name} 
-                PUBLIC "${api_name}=__attribute__((visibility(\"default\")))"
+                PRIVATE "${api_name}=__attribute__((visibility(\"default\")))"
             )
             set_target_properties(
                 ${target_name} PROPERTIES
@@ -32,7 +32,7 @@ function(target_export_api target_name api_name)
             message(FATAL_ERROR "Unsupported compiler!")
         endif()
     else()
-        target_compile_definitions(${target_name} PUBLIC ${api_name}=)
+        target_compile_definitions(${target_name} PRIVATE ${api_name}=)
     endif()
     set_target_properties(
         ${target_name} PROPERTIES 
@@ -40,7 +40,7 @@ function(target_export_api target_name api_name)
     )
 endfunction()
 
-function(target_import_api target_name target_to_import)
+function(target_import_api target_name scope target_to_import)
     get_target_property(api_name ${target_to_import} TARGET_API_NAME)
 
     if(NOT api_name)
@@ -51,31 +51,31 @@ function(target_import_api target_name target_to_import)
         if(MSVC OR WIN32 OR CYGWIN)
             target_compile_definitions(
                 ${target_name} 
-                PRIVATE "${api_name}=__declspec(dllimport)"
+                ${scope} "${api_name}=__declspec(dllimport)"
             )
         elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
             target_compile_definitions(${target_name} 
-                PUBLIC "${api_name}=__attribute__((visibility(\"default\")))"
+                ${scope} "${api_name}=__attribute__((visibility(\"default\")))"
             )
         else()
             message(FATAL_ERROR "Unsupported compiler!")
         endif()
     else()
-        target_compile_definitions(${target_name} PUBLIC ${api_name}=)
+        target_compile_definitions(${target_name} ${scope} ${api_name}=)
     endif()
 endfunction()
 
-function(target_config_build_type target_name)
-    target_compile_definitions(${target_name} PRIVATE
+function(target_config_build_type target_name scope)
+    target_compile_definitions(${target_name} ${scope}
         $<$<CONFIG:Debug>:DEBUG=1>
         $<$<CONFIG:Release>:RELEASE=1>
     )
 endfunction()
 
-function(target_default_compile_options target_name)
+function(target_default_compile_options target_name scope)
     target_compile_options(
         ${target_name}
-        PRIVATE
+        ${scope}
             $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
                 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor 
                 -Wold-style-cast -Wsign-conversion -Wconversion
